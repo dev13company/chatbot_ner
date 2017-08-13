@@ -93,7 +93,7 @@ def combine_output_of_detection_logic_and_tag(entity_data, text):
     original_text_list = sort_original_text(original_text_list)
     for original_text in original_text_list:
         tag = ''
-        if original_text in processed_text:
+        if original_text.strip() in processed_text:
             processed_text = processed_text.replace(original_text, '')
             for entity_dict, entity in tag_preprocess_dict[original_text]:
                 tag += '_' + entity
@@ -103,7 +103,7 @@ def combine_output_of_detection_logic_and_tag(entity_data, text):
                     final_entity_data[entity] = [entity_dict]
             if tag != '':
                 tag = '_' + tag + '__'
-            tagged_text = tagged_text.replace(original_text, tag)
+            tagged_text = tagged_text.replace(original_text.strip(), tag)
         else:
             for entity_dict, entity in tag_preprocess_dict[original_text]:
                 if not final_entity_data[entity]:
