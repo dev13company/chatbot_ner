@@ -36,4 +36,4 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --bind=unix:$SOCKFILE \
   --timeout $TIMEOUT \
   --backlog=2048
-#  --threads=2
+  --threads=2
