@@ -757,7 +757,6 @@ def output_entity_dict_list(entity_value_list=None, original_text_list=None, det
                 )
 
             count += 1
-
     return entity_list
 
 
@@ -792,4 +791,5 @@ def output_entity_dict_value(entity_value=None, original_text=None, detection_me
             ORIGINAL_TEXT: original_text
         }
     ]
+
     return entity_list

@@ -115,8 +115,8 @@ def get_entity_function(entity, message):
         'shopping_size': get_shopping_size,
         'otp_number': get_number,
         'order_id': get_number
-    }
 
+    }
     if entity in entity_function_dictionary:
         return entity_function_dictionary.get(entity)(message=message, entity_name=entity, structured_value=None,
                                                       fallback_value=None, bot_message=None)

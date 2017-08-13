@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME="chatbot_ner"                                              # Name of the application
-DJANGODIR=~/chatbot_ner                                         # Django project directory
+DJANGODIR=~/workspace1/chatbot_ner                                         # Django project directory
 SOCKFILE=~/run/gunicorn.sock                                    # we will communicate using this unix socket
 USER=`whoami`                                                   # the user to run as
 GROUP=`id -gn`                                                  # the group to run as
@@ -36,4 +36,4 @@ exec gunicorn ${DJANGO_WSGI_MODULE}:application \
   --bind=unix:$SOCKFILE \
   --timeout $TIMEOUT \
   --backlog=2048
-  --threads=2
+#  --threads=2

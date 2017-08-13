@@ -306,6 +306,7 @@ def ner(request):
     entities = []
     if entities_data:
         entities = ast.literal_eval(entities_data)
+    print(','.join(entities))
     ner_logger.debug('Start: %s -- %s' % (message, entities))
     output = run_ner(entities=entities, message=message)
     ner_logger.debug('Finished %s : %s ' % (message, output))
