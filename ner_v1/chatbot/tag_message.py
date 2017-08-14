@@ -114,7 +114,10 @@ def get_entity_function(entity, message):
         'flight_pnr': get_pnr,
         'shopping_size': get_shopping_size,
         'otp_number': get_number,
-        'order_id': get_number
+        'order_id': get_number,
+        'quantity': get_number,
+        'coupon_id': get_number,
+        'price': get_number
 
     }
     if entity in entity_function_dictionary:
