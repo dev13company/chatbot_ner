@@ -62,13 +62,12 @@ class NumberDetector(object):
         self.tag = '__' + self.entity_name + '__'
         self.task_dict = {
             'number_of_people': self._detect_number_of_people_format,
-            'quatity_of_product': self._detect_quantity_of_product_format,
+            'quantity': self._detect_quantity_of_product_format,
             'otp_number': self._detect_otp_mobile_format,
             'order_id': self._detect_order_id_format,
             'coupon_id': self._detect_coupon_id_format,
-            'price_of_product':self._detect_price_of_product_format,
-            'Default': self._detect_number_format,
-
+            'price':self._detect_price_of_product_format,
+            'Default': self._detect_number_format
         }
 
     def detect_entity(self, text):
@@ -161,13 +160,25 @@ class NumberDetector(object):
     def _detect_quantity_of_product_format(self):
         number_list = []
         original_list = []
-        patterns = re.findall(r'(per)?\s*(\d+(\.\d+)?|half)?\s*(kgs|kg|gms|gm|grams|grms|kilo)'r'\s', self.processed_text.lower())
+        patterns = re.findall(r'(per)?\s*([0-9]+(\.[0-9]+)?|half)?\s*(kgs|kg|gms|gm|grams|grms|kilo)', self.processed_text.lower())
         for pattern in patterns:
+            values = []
             if pattern[0]:
                 number_list.append(pattern[0])
-            elif pattern[1]:
+                values.append(pattern[0])
+            if pattern[1]:
                 number_list.append(pattern[1])
-            original_list.append(pattern[3])
+                values.append(pattern[1])
+            if pattern[2]:
+                values.append(pattern[2])
+            if pattern[3]:
+                values.append(pattern[3])
+
+            if ' '.join(values) in self.processed_text.lower():
+                original_list.append(' '.join(values))
+            elif ''.join(values) in self.processed_text.lower():
+                original_list.append(''.join(values))
+                
         return number_list, original_list
 
     def _detect_order_id_format(self):
@@ -194,7 +205,10 @@ class NumberDetector(object):
         patterns = re.findall(r'(code\s+no\.|coupon code|code)\s*([0-9]+)\s*',self.processed_text.lower())
         for pattern in patterns:
             number_list.append(pattern[1])
-            original_list.append(pattern[0])
+            if ' '.join(pattern) in self.processed_text.lower():
+                original_list.append(' '.join(pattern))
+            elif ''.join(pattern) in self.processed_text.lower():
+                original_list.append(''.join(pattern))
         return number_list, original_list
 
     def _detect_price_of_product_format(self):

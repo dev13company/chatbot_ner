@@ -183,7 +183,6 @@ class DateDetector(object):
         self._update_processed_text(original_list)
         date_list, original_list = self._gregorian_month_day_format(date_list, original_list)
         self._update_processed_text(original_list)
-
         date_list, original_list = self._day_after_tomorrow(date_list, original_list)
         self._update_processed_text(original_list)
         date_list, original_list = self._day_before_yesterday(date_list, original_list)
@@ -196,7 +195,7 @@ class DateDetector(object):
         self._update_processed_text(original_list)
         date_list, original_list = self._day_in_next_week(date_list, original_list)
         self._update_processed_text(original_list)
-
+        
         return date_list, original_list
 
     def get_possible_date(self, date_list=None, original_list=None):
@@ -888,7 +887,7 @@ class DateDetector(object):
                               self.processed_text.lower())
         # print 'pattern : ', patterns
         for pattern in patterns:
-            original = pattern[0]
+            original = pattern
             yesterday = self.date_object - datetime.timedelta(days=1)
             dd = yesterday.day
             mm = yesterday.month
