@@ -67,6 +67,7 @@ class NumberDetector(object):
             'order_id': self._detect_order_id_format,
             'coupon_id': self._detect_coupon_id_format,
             'price':self._detect_price_of_product_format,
+            'percent':self._detect_percent_format,
             'Default': self._detect_number_format
         }
 
@@ -178,7 +179,7 @@ class NumberDetector(object):
                 original_list.append(' '.join(values))
             elif ''.join(values) in self.processed_text.lower():
                 original_list.append(''.join(values))
-                
+
         return number_list, original_list
 
     def _detect_order_id_format(self):
@@ -223,6 +224,15 @@ class NumberDetector(object):
                 original_list.append(pattern[2])
         return number_list, original_list
 
+    def _detect_percent_format(self):
+        number_list = []
+        original_list = []
+        patterns = re.findall(r'\d{2}\s*%', self.processed_text.lower())
+        for pattern in patterns:
+            number_list.append(pattern)
+            original_list.append(pattern)
+        return number_list, original_list
+        
     def _update_processed_text(self, original_number_strings):
         """
         Replaces detected numbers with self.tag generated from entity_name used to initialize the object with
